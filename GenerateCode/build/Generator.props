@@ -1,0 +1,16 @@
+﻿<Project>
+
+  <ItemGroup>
+
+    <!-- Model inputs to the generator. -->
+    <GeneratorInput Include="**/*.input" />
+
+    <!-- Remove the default item created by the SDK. -->
+    <None Remove="Foo.input" />
+
+    <!-- Allow these items to appear in solution explorer -->
+    <AvailableItemName Include="GeneratorInput" />
+
+  </ItemGroup>
+  
+</Project>

@@ -1,0 +1,8 @@
+bin/
+obj/
+*.user
+*.suo
+*.nupkg
+packages/
+.vs/
+
