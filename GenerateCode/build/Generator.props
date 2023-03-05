@@ -5,11 +5,31 @@
     <!-- Model inputs to the generator. -->
     <GeneratorInput Include="**/*.input" />
 
-    <!-- Remove the default item created by the SDK. -->
-    <None Remove="Foo.input" />
+    <!-- Remove these items from the 'None' group. -->
+    <None Remove="@(GeneratorInput)" />
 
-    <!-- Allow these items to appear in solution explorer -->
+    <!-- Allow these items to appear in solution explorer. -->
     <AvailableItemName Include="GeneratorInput" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <!-- Add some metadata to the input items that we will use later. -->
+    <GeneratorInput Update="@(GeneratorInput)">
+      <GeneratedOutputPath>$(IntermediateOutputPath)$([System.IO.Path]::GetFileNameWithoutExtension('%(Identity)')).cs</GeneratedOutputPath>
+      <GeneratedLink>$([System.IO.Path]::ChangeExtension('%(Identity)', '.cs'))</GeneratedLink>
+      <GeneratedDependentUpon>%(Identity)</GeneratedDependentUpon>
+    </GeneratorInput>
+
+    <!--
+      Add compile items for our generator outputs. We do this in a top-level ItemGroup
+      (rather than a target) so they appear in Solution Explorer.
+    -->
+    <Compile Include="@(GeneratorInput -> '%(GeneratedOutputPath)')">
+      <DependentUpon>%(GeneratedDependentUpon)</DependentUpon>
+      <Link>%(GeneratedLink)</Link>
+    </Compile>
 
   </ItemGroup>
   
