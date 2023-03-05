@@ -3,6 +3,7 @@ obj/
 *.user
 *.suo
 *.nupkg
+*.binlog
 packages/
 .vs/
 
